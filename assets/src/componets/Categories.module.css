@@ -1,0 +1,40 @@
+.categoriesContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 150px;
+}
+
+.category {
+    width: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 2px 2px 1px 4px lightblue;
+    margin: 10px;
+    border-radius: 10px;
+}
+
+.category:hover .categoryName a {
+    color: #028697;
+    font-size: 20px;
+}
+
+.category:hover {
+    width: 120px;
+}
+
+.categoryImage {
+    height: 100px;
+    width: 70px;
+    background: #00b4cc;
+    border-radius: 10px;
+    margin: 5px;
+}
+
+.categoryName a {
+    font-size: 18px; 
+    font-family: raleway;
+    text-decoration: none;
+    color: #00b4cc;
+}
