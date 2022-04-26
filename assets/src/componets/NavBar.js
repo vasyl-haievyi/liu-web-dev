@@ -13,10 +13,10 @@ class NavBar extends React.Component {
                 </div>
                 <nav>
                     <ul>
-                        <li><Link to='messages'>Messages</Link></li>
-                        <li><Link to='following'>Following</Link></li>
-                        <li><Link to='account'>My Account</Link></li>
-                        <li><Link to='add'>Add Advertisiment</Link></li>
+                        <li><Link to='/messages'>Messages</Link></li>
+                        <li><Link to='/following'>Following</Link></li>
+                        <li><Link to='/account'>My Account</Link></li>
+                        <li><Link to='/add'>Add Advertisiment</Link></li>
                     </ul>
                 </nav>
             </div>

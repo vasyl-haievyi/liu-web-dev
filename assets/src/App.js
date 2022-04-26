@@ -2,6 +2,7 @@ import './App.css';
 
 import Main from './componets/Main';
 import Search from './componets/Search';
+import Chat from './componets/Chat'
 
 import {
   BrowserRouter as Router,
@@ -15,6 +16,7 @@ function App() {
       <Routes>
         <Route exact path='/' element={ <Main />} />
         <Route path='/search' element={ <Search /> } />
+        <Route path='/messages' element={<Chat />} />
       </Routes>
     </Router>
   );
