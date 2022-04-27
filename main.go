@@ -17,11 +17,11 @@ func main() {
 
 func getCategoriesHandler(ctx *gin.Context) {
 	categories := [...]gin.H{
-		{"id": "transport", "prettyName": "Transport"},
-		{"id": "real_estate", "prettyName": "Real Estate"},
-		{"id": "electronics", "prettyName": "Electronics"},
-		{"id": "fascion", "prettyName": "Fascion"},
-		{"id": "sport_and_hobbies", "prettyName": "Sport & Hobbies"},
+		{"id": "transport", "title": "Transport", "subcategories": [...]gin.H{{"id": "cars", "title": "Cars"}, {"id": "bicycles", "title": "Bicycles"}}},
+		{"id": "real_estate", "title": "Real Estate", "subcategories": [...]gin.H{}},
+		{"id": "electronics", "title": "Electronics", "subcategories": [...]gin.H{{"id": "smartphones", "title": "Smartphones"}, {"id": "laptops", "title": "Laptops"}}},
+		{"id": "fascion", "title": "Fascion", "subcategories": [...]gin.H{}},
+		{"id": "sport_and_hobbies", "title": "Sport & Hobbies", "subcategories": [...]gin.H{}},
 	}
 	ctx.JSON(200, gin.H{
 		"categories": categories,
