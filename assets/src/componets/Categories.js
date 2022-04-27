@@ -16,7 +16,7 @@ function Categories()  {
             <div className={styles.category}>
                 <div className={styles.categoryImage}></div>
                 <div className={styles.categoryName}>
-                    <Link to={`/search?category=${category.id}`}>{category.prettyName}</Link>  
+                    <Link to={`/search?category=${category.id}`}>{category.title}</Link>  
                 </div>
             </div>
         )
@@ -29,7 +29,3 @@ function Categories()  {
 }
 
 export default Categories;
-
-function getCategories() {
-    return [{id: "transport", prettyName: "Transport"}, {id: "real_estate", prettyName: "Real Estate"}, {id: "electronics", prettyName: "Electronics"}, {id: "fascion", prettyName: "Fascion" }, {id: "sport_and_hobbies", prettyName: "Sport & Hobbies"},]
-  }
