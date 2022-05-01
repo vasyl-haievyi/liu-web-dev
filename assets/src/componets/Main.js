@@ -1,16 +1,15 @@
-import styles from './Main.module.css';
-
 import NavBar from './NavBar';
 import SearchBar from './SearchBar';
 import Categories from './Categories';
+import { Container, Row } from 'react-bootstrap'
 
 function Main() {
   return (
-    <div className={styles.main}>
-      <NavBar />
-      <SearchBar />
-      <Categories />
-    </div>
+    <Container fluid>
+      <Row><NavBar/></Row>
+      <Row><SearchBar/></Row>
+      <Row><Categories/></Row>
+    </Container>
   );
 }
 

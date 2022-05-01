@@ -1,30 +1,37 @@
 import React from 'react'
+import { Card, Container, Row, Col } from 'react-bootstrap'
 
-import styles from './Contacts.module.css'
-
-class Contacts extends React.Component {
-    render() {
-        let contacts = getContacts().map((contact) => {
-            return (
-                <li key={contact.id} className={styles.contact}>
-                    <div className={styles.contactImage}></div>
-                    <div className={styles.contactName}>{contact.name}</div>
-                </li>
-            )
-        });
-
+function Contacts () {
+    let contacts = getContacts().map((contact) => {
         return (
-            <ul className={styles.container}>
-                {contacts}
-            </ul>
+            <Row className="my-1">
+                <Card border="primary">
+                    <Row className="align-items-center">  
+                        <Col md="auto">
+                            <Card.Img src="..." height="50px" width="50px"/>
+                        </Col>
+                        <Col>
+                            <Card.Body>
+                                <Card.Title>{contact.name}</Card.Title>
+                            </Card.Body>
+                        </Col>
+                    </Row>
+                </Card>
+            </Row>
         )
-    }
+    });
+
+    return (
+        <Container className="overflow-scroll" style={{maxHeight: "90vh"}}>
+            {contacts}
+        </Container>
+    )
 }
 
 function getContacts() {
     let res = []
 
-    for (let i = 0; i < 15; i++) {
+    for (let i = 0; i < 25; i++) {
         res.push({
             id: i,
             name: randomStr() + " " + randomStr(),

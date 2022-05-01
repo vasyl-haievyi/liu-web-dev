@@ -1,27 +1,33 @@
 import React from 'react';
-import { Link } from 'react-router-dom'
-import styles from './NavBar.module.css'
+import { NavLink } from 'react-router-dom'
+import { Navbar, Nav, Container } from 'react-bootstrap'
 import logo from '../logo.svg'
 
 
-class NavBar extends React.Component {
-    render() {
-        return (
-            <div className={styles.container}>
-                <div className={styles.logo}>
-                    <Link to='/'><img  src={logo} alt="logo" /></Link>
-                </div>
-                <nav>
-                    <ul>
-                        <li><Link to='/messages'>Messages</Link></li>
-                        <li><Link to='/following'>Following</Link></li>
-                        <li><Link to='/account'>My Account</Link></li>
-                        <li><Link to='/add'>Add Advertisiment</Link></li>
-                    </ul>
-                </nav>
-            </div>
-        )
-    }
+function NavBar() {
+    return (
+        <Navbar bg="dark" variant="dark" expand="lg">
+            <Container fluid>
+                <Navbar.Brand as={NavLink} to="/">
+                    <img  
+                    src={logo} 
+                    alt="logo"
+                    width="70px"
+                    height="70px"
+                    className="d-inile-block align-top" />
+                </Navbar.Brand>
+                <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                <Navbar.Collapse id="basic-navbar-nav" className='ml-auto'>
+                    <Nav className="ms-auto">
+                        <Nav.Link as={NavLink}  to="/messages">Messages</Nav.Link>
+                        <Nav.Link as={NavLink} to="/following">Following</Nav.Link>
+                        <Nav.Link as={NavLink} to="/account">My Account</Nav.Link>
+                        <Nav.Link as={NavLink} to="/add">Add Advertisiment</Nav.Link>
+                    </Nav>
+                </Navbar.Collapse>
+            </Container>
+        </Navbar>
+    )
 }
 
 export default NavBar;

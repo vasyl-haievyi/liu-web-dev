@@ -1,27 +1,32 @@
 import React from "react";
-
-import styles from "./Chat.module.css";
+import { Container, Row, Col} from 'react-bootstrap'
 
 import NavBar from './NavBar'
 import Contacts from './Contacts'
-import ChatDialog from "./ChatDialog"
+import ChatHistory from "./ChatHistory"
+import MessageEditor from './MessageEditor'
 
-class Chat extends React.Component {
-    render() {
-        return (
-            <div className={styles.container}>
-                <NavBar />
-                <div>
-                    <div className={styles.contacts}>
-                        <Contacts />
-                    </div>
-                    <div className={styles.dialog}>
-                        <ChatDialog />
-                    </div>
-                </div>
-            </div>
-        )
-    }
+function Chat () {
+    return (
+        <Container fluid className="vh-100 overflow-hidden ">
+            <Row>
+                <NavBar />  
+            </Row>
+            <Row >
+                <Col md="5" ld="6" xl="3">
+                    <Contacts />
+                </Col>
+                <Col>
+                    <Row  > 
+                            <ChatHistory />
+                    </Row>
+                    <Row >
+                        <MessageEditor />
+                    </Row>
+                </Col>
+            </Row>
+        </Container>
+    )
 }
 
 export default Chat;

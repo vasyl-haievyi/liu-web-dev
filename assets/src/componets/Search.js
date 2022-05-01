@@ -1,7 +1,6 @@
 import React from 'react';
 import { useSearchParams } from 'react-router-dom'
-
-import styles from './Search.module.css';
+import { Container, Row, Col } from 'react-bootstrap'
 
 import NavBar from './NavBar'
 import SearchBar from './SearchBar'
@@ -23,18 +22,22 @@ function Search () {
     }
 
     return (
-        <div>
-            <NavBar />
-            <SearchBar />
-            <div className={styles.resultsArea}>
-                <div className={styles.searchOptions}>
+        <Container fluid>
+            <Row>
+                <NavBar />
+            </Row>
+            <Row>
+                <SearchBar />
+            </Row>
+            <Row>
+                <Col xs="7" md="4" xl="2">
                     <SearchOptions checked={selectedCategories} onCheckedChange={onCategoryChecked} />
-                </div>
-                <div className={styles.searchResults}>
+                </Col>
+                <Col>
                     <SearchResults results={getSearchResults()} />
-                </div>
-            </div>
-        </div>
+                </Col>
+            </Row>
+        </Container>
     )
 }
 

@@ -1,17 +1,24 @@
 import React from 'react';
-import styles from './SearchBar.module.css';
+import { Container, InputGroup, FormControl, Button, Row, Col } from 'react-bootstrap'
 
-class SearchBar extends React.Component {
-    render() {
-        return (
-            <div className={styles.wrap}>
-                <div className={styles.search}>
-                    <input className={styles.searchTerm} type='text' placeholder='Search term'/>
-                    <input className={styles.searchButton} type='submit' value="Search"/>
-                </div>
-            </div>
-        )
-    }
+function SearchBar () {
+    return (
+        <Container className="my-4">
+            <Row className="justify-content-md-center">
+                <Col xs lg="3">
+                    <InputGroup>
+                        <FormControl
+                        placeholder="Search term"
+                        aria-label="Search term"
+                        />
+                        <Button variant="primary">
+                            Search
+                        </Button>
+                    </InputGroup>
+                </Col>
+            </Row>
+        </Container>
+    )
 }
 
 export default SearchBar    ;

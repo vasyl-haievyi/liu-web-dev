@@ -1,27 +1,37 @@
 import React from 'react';
-
-import styles from './SearchResults.module.css';
-
+import { Container, Row, Col, Card } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 
-class SearchResults extends React.Component {
-    render() {
-        let results = this.props.results.map((item) => {
-            return (
-                <div className={styles.result}>
-                    <div className={styles.resultImage}></div>
-                    <div className={styles.resultTitle}>
-                        <Link to={'/items/' + item.id}>{item.title}</Link>  
-                    </div>
-                </div>
-            )
-        })
+function SearchResults ({ results }) {
+    let resultsItems = results.map((item) => {
         return (
-            <div className={styles.resultsContainer}>
-                {results}
-            </div>
+            <Row className="mb-2">
+                <Card border="primary">
+                    <Row>
+                        <Col md="auto" className="my-2">
+                            <Card.Img src="..." height="250px" width="175px"/>
+                        </Col>
+                        <Col>
+                            <Card.Body className="h-100">
+                                <Card.Title>{item.title}</Card.Title>
+                                <Card.Link
+                                    as={Link} 
+                                    to={'/items/' + item.id}
+                                    className="stretched-link"
+                                />
+                            </Card.Body>
+                        </Col>
+                    </Row>
+                </Card>
+            </Row>
         )
-    }
+    })
+
+    return (
+        <Container>
+            {resultsItems}
+        </Container>        
+    )
 }
 
 export default SearchResults;

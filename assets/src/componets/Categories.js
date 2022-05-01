@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from 'react';
+import { Container, Row, Card, Image } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
-
-import styles from './Categories.module.css'
 
 function Categories()  {
     let [categories, setCategories] = useState([])
@@ -13,18 +12,26 @@ function Categories()  {
 
     let categoriesItems = categories.map((category) => {
         return (
-            <div className={styles.category}>
-                <div className={styles.categoryImage}></div>
-                <div className={styles.categoryName}>
-                    <Link to={`/search?category=${category.id}`}>{category.title}</Link>  
-                </div>
-            </div>
+            <Card style={{ width: '10rem' }} className="mx-2">
+                <Card.Img variant="top" src="..."/>
+                <Card.Body>
+                    <Card.Title>{category.title}</Card.Title>
+                    <Card.Link 
+                    as={Link} 
+                    to={`/search?category=${category.id}`}
+                    className="btn btn-primary">
+                        {category.title}
+                    </Card.Link>
+                </Card.Body>
+            </Card>
         )
     });
     return (
-        <div className={styles.categoriesContainer}>
-            {categoriesItems}
-        </div>
+        <Container className="mt-5">
+            <Row className="justify-content-md-center">
+                {categoriesItems}
+            </Row>
+        </Container>
     )
 }
 
