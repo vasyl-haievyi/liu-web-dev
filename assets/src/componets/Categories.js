@@ -17,8 +17,11 @@ function Categories()  {
                 <Card.Body>
                     <Card.Title>{category.title}</Card.Title>
                     <Card.Link 
-                    as={Link} 
-                    to={`/search?category=${category.id}`}
+                    as={Link}
+                    to={{
+                        pathname: "search",
+                        search: `?category=${category.id}`
+                    }}
                     className="btn btn-primary">
                         {category.title}
                     </Card.Link>

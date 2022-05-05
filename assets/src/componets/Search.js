@@ -9,16 +9,23 @@ import SearchOptions from './SearchOptions';
 
 function Search () {
     let [searchParams, setSearchParams] = useSearchParams();
-    let selectedCategories = searchParams.getAll("category")
 
     let onCategoryChecked = (id ,checked) => {
         if (checked) {
-            selectedCategories.push(id);
+            searchParams.append('category', id)
         } else {
-            selectedCategories = selectedCategories.filter(catId => catId !== id)
+            let newSelectedCategories = searchParams.getAll('category').filter(catId => catId !== id)
+            searchParams.delete('category')
+            newSelectedCategories.forEach(category => {searchParams.append('category', category)})
         }
 
-        setSearchParams({category: selectedCategories})
+        searchParams.sort()
+        setSearchParams(searchParams)
+    }
+
+    let onSearchClicked = (searchTerm) => {
+        searchParams.set('q', searchTerm)
+        setSearchParams(searchParams)
     }
 
     return (
@@ -27,11 +34,11 @@ function Search () {
                 <NavBar />
             </Row>
             <Row>
-                <SearchBar />
+                <SearchBar onSearchClicked={onSearchClicked}/>
             </Row>
             <Row>
                 <Col xs="7" md="4" xl="2">
-                    <SearchOptions checked={selectedCategories} onCheckedChange={onCategoryChecked} />
+                    <SearchOptions checked={searchParams.getAll('category')} onCheckedChange={onCategoryChecked} />
                 </Col>
                 <Col>
                     <SearchResults results={getSearchResults()} />

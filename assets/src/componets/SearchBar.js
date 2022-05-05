@@ -1,7 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Container, InputGroup, FormControl, Button, Row, Col } from 'react-bootstrap'
 
-function SearchBar () {
+function SearchBar ( props ) {
+    let [searchTerm, setSearchTerm] = useState("");
+
+    let onSearchTermChanged = (e) => {
+        setSearchTerm(e.target.value)
+    }
+
     return (
         <Container className="my-4">
             <Row className="justify-content-md-center">
@@ -10,8 +16,9 @@ function SearchBar () {
                         <FormControl
                         placeholder="Search term"
                         aria-label="Search term"
+                        onChange={onSearchTermChanged}
                         />
-                        <Button variant="primary">
+                        <Button variant="primary" onClick={() => props.onSearchClicked(searchTerm)}>
                             Search
                         </Button>
                     </InputGroup>
