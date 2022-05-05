@@ -1,7 +1,18 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Container, Row } from 'react-bootstrap';
 
 function ChatHistory () {
+
+    const messagesEndRef = useRef(null)
+
+    const scrollToBottom = () => {
+        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
+    }
+
+    useEffect(() => {
+        scrollToBottom()
+    }, []);
+
     let messages = getMessages().map((message) => {
         let message_classes = message.incoming? "bg-primary" : "bg-info float-end"
         let paragraph_classes = message.incoming? "" : "text-end"
@@ -15,6 +26,7 @@ function ChatHistory () {
     return (
         <Container fluid className="overflow-scroll" style={{maxHeight: "80vh"}}>
             {messages}
+            <Row> <div ref={messagesEndRef} /></Row>
         </Container>
     )
 }
