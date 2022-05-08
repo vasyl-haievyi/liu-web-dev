@@ -1,10 +1,12 @@
-package main
+package server
 
 import (
+	"net/http"
+
 	"github.com/gin-gonic/gin"
 )
 
-func main() {
+func setRouter() *gin.Engine {
 	router := gin.Default()
 
 	api := router.Group("/api")
@@ -12,7 +14,9 @@ func main() {
 		api.GET("/categories", getCategoriesHandler)
 	}
 
-	router.Run(":8080")
+	router.NoRoute(func(ctx *gin.Context) { ctx.JSON(http.StatusNotFound, gin.H{}) })
+
+	return router
 }
 
 func getCategoriesHandler(ctx *gin.Context) {
