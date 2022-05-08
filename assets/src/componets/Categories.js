@@ -1,5 +1,5 @@
-import React, {useState, useEffect} from 'react';
-import { Container, Row, Card, Image } from 'react-bootstrap'
+import { useState, useEffect } from 'react';
+import { Container, Row, Card } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 
 function Categories()  {
@@ -22,7 +22,7 @@ function Categories()  {
                         pathname: "search",
                         search: `?category=${category.id}`
                     }}
-                    className="btn btn-primary">
+                    className="btn btn-primary stretched-link">
                         {category.title}
                     </Card.Link>
                 </Card.Body>
