@@ -1,20 +1,18 @@
 package server
 
 import (
-	"net/http"
-
-	"github.com/gin-gonic/gin"
+	"github.com/go-chi/chi/v5"
+	"github.com/go-chi/chi/v5/middleware"
 )
 
-func setRouter() *gin.Engine {
-	router := gin.Default()
+func setRouter() *chi.Mux {
+	router := chi.NewRouter()
+	router.Use(middleware.Logger)
+	router.Use(middleware.Recoverer)
 
-	api := router.Group("/api")
-	{
-		api.GET("/categories", GetCategoriesHandler)
-	}
-
-	router.NoRoute(func(ctx *gin.Context) { ctx.JSON(http.StatusNotFound, gin.H{}) })
+	router.Route("/api", func(r chi.Router) {
+		r.Get("/categories", GetCategoriesHandler)
+	})
 
 	return router
 }

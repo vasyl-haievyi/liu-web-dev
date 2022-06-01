@@ -1,7 +1,9 @@
 package server
 
+import "net/http"
+
 func Start() {
 	router := setRouter()
 
-	router.Run(":8080")
+	http.ListenAndServe(":8080", router)
 }

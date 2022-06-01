@@ -3,17 +3,18 @@ package server
 import (
 	"net/http"
 
-	"github.com/gin-gonic/gin"
+	"github.com/go-chi/render"
 	"gitlab.liu.se/vasha375/tddd27_2022_project/internal/database"
 )
 
-func GetCategoriesHandler(ctx *gin.Context) {
+func GetCategoriesHandler(w http.ResponseWriter, r *http.Request) {
 	categories, err := database.GetCategories()
 	if err != nil {
-		ctx.JSON(http.StatusInternalServerError, err.Error())
+		render.Render(w, r, ErrInternal(err))
+		return
 	} else {
-		ctx.JSON(http.StatusOK, gin.H{
-			"categories": categories,
-		})
+
+		render.Render(w, r, NewCategoriesResponse(categories))
+		return
 	}
 }
