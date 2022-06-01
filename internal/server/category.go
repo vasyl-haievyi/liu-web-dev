@@ -12,9 +12,8 @@ func GetCategoriesHandler(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		render.Render(w, r, ErrInternal(err))
 		return
-	} else {
-
-		render.Render(w, r, NewCategoriesResponse(categories))
+	} else if err := render.Render(w, r, NewCategoriesResponse(categories)); err != nil {
+		render.Render(w, r, ErrRender(err))
 		return
 	}
 }
