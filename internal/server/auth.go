@@ -10,6 +10,8 @@ import (
 	"github.com/volatiletech/authboss/v3"
 	_ "github.com/volatiletech/authboss/v3/auth"
 	"github.com/volatiletech/authboss/v3/defaults"
+	_ "github.com/volatiletech/authboss/v3/logout"
+	_ "github.com/volatiletech/authboss/v3/register"
 	"gitlab.liu.se/vasha375/tddd27_2022_project/internal/database"
 )
 

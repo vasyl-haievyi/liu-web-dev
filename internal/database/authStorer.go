@@ -37,7 +37,7 @@ func (storer DefaultStorer) Save(ctx context.Context, user authboss.User) error 
 		return err
 	}
 
-	dbUser, _ := user.(*model.User)
+	dbUser := user.(*model.User)
 	if _, err := storer.col.UpdateOne(ctx, bson.D{E("email", dbUser.GetPID())}, dbUser); err != nil {
 		return err
 	}
@@ -55,7 +55,7 @@ func (storer DefaultStorer) Create(ctx context.Context, user authboss.User) erro
 	if u, err := storer.Load(ctx, user.GetPID()); err != nil || user != nil {
 		if u != nil {
 			return authboss.ErrUserFound
-		} else if err != mongo.ErrNoDocuments {
+		} else if err != authboss.ErrUserNotFound {
 			return err
 		}
 	}
