@@ -1,20 +1,37 @@
 package server
 
 import (
+	"net/http"
+
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 	"github.com/go-chi/render"
+	"github.com/volatiletech/authboss/v3"
 )
 
 func setRouter() *chi.Mux {
 	router := chi.NewRouter()
+	ab := SetUpAuth()
 	router.Use(middleware.Logger)
 	router.Use(middleware.Recoverer)
 	router.Use(render.SetContentType(render.ContentTypeJSON))
+	router.Use(ab.LoadClientStateMiddleware)
+
+	router.Group(func(r chi.Router) {
+		r.Use(authboss.ModuleListMiddleware(ab))
+		r.Mount("/auth", http.StripPrefix("/auth", ab.Config.Core.Router))
+	})
 
 	router.Route("/api", func(r chi.Router) {
+
 		r.Get("/categories", GetCategoriesHandler)
-		r.Post("/items", PostItemHandler)
+
+		r.Group(func(r chi.Router) {
+			r.Use(authboss.Middleware2(ab, authboss.RequireNone, authboss.RespondUnauthorized))
+
+			r.Post("/items", PostItemHandler)
+		})
+
 	})
 
 	return router

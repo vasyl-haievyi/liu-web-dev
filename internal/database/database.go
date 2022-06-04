@@ -5,6 +5,7 @@ import (
 	"log"
 	"time"
 
+	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
@@ -38,4 +39,8 @@ func ConnectDB() {
 func getCollection(collectionName string) *mongo.Collection {
 	collection := db.Database("store").Collection(collectionName)
 	return collection
+}
+
+func E(s string, i interface{}) bson.E {
+	return bson.E{Key: s, Value: i}
 }
