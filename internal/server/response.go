@@ -31,3 +31,16 @@ func (resp ItemCreatedResponse) Render(w http.ResponseWriter, r *http.Request) e
 func NewItemCreatedResponse(id string) ItemCreatedResponse {
 	return ItemCreatedResponse{Id: id}
 }
+
+type GetUserResponse struct {
+	User model.User `json:"user"`
+}
+
+func (resp GetUserResponse) Render(w http.ResponseWriter, r *http.Request) error {
+	render.Status(r, http.StatusOK)
+	return nil
+}
+
+func NewGetUserResponse(user model.User) GetUserResponse {
+	return GetUserResponse{User: user}
+}

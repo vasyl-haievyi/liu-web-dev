@@ -30,6 +30,7 @@ func setRouter() *chi.Mux {
 			r.Use(authboss.Middleware2(ab, authboss.RequireNone, authboss.RespondUnauthorized))
 
 			r.Post("/items", PostItemHandler)
+			r.Get("/currentUser", getCurrentUserHandler(ab))
 		})
 
 	})

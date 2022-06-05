@@ -56,4 +56,6 @@ func ErrInternal(err error) render.Renderer {
 	}
 }
 
+var ErrUnauthorized = &ErrResponse{HTTPStatusCode: http.StatusUnauthorized, StatusText: "User not logged in"}
+
 var ErrNotFound = &ErrResponse{HTTPStatusCode: http.StatusNotFound, StatusText: "Resource not found."}
