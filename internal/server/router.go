@@ -12,6 +12,7 @@ import (
 func setRouter() *chi.Mux {
 	router := chi.NewRouter()
 	ab := SetUpAuth()
+	mld := SetUpWebsockets(ab)
 	router.Use(middleware.Logger)
 	router.Use(middleware.Recoverer)
 	router.Use(render.SetContentType(render.ContentTypeJSON))
@@ -33,6 +34,9 @@ func setRouter() *chi.Mux {
 
 			r.Post("/items", PostItemHandler)
 			r.Get("/currentUser", getCurrentUserHandler(ab))
+			r.Get("/chatws", func(w http.ResponseWriter, r *http.Request) {
+				_ = mld.HandleRequest(w, r)
+			})
 		})
 
 	})
