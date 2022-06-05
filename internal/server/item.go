@@ -3,6 +3,7 @@ package server
 import (
 	"net/http"
 
+	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/render"
 	"gitlab.liu.se/vasha375/tddd27_2022_project/internal/database"
 )
@@ -21,4 +22,19 @@ func PostItemHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	render.Render(w, r, NewItemCreatedResponse(id))
+}
+
+func GetItemHandler(w http.ResponseWriter, r *http.Request) {
+	id := chi.URLParam(r, "id")
+
+	item, err := database.FindItemById(id)
+	if err == database.ErrNotFound {
+		render.Render(w, r, ErrNotFound)
+		return
+	} else if err != nil {
+		render.Render(w, r, ErrInternal(err))
+		return
+	}
+
+	render.Render(w, r, NewGetItemResponse(item))
 }

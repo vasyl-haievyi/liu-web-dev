@@ -25,6 +25,7 @@ func setRouter() *chi.Mux {
 	router.Route("/api", func(r chi.Router) {
 
 		r.Get("/categories", GetCategoriesHandler)
+		r.Get("/items/{id}", GetItemHandler)
 
 		r.Group(func(r chi.Router) {
 			r.Use(authboss.Middleware2(ab, authboss.RequireNone, authboss.RespondUnauthorized))

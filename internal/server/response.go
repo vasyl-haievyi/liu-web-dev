@@ -33,7 +33,7 @@ func NewItemCreatedResponse(id string) ItemCreatedResponse {
 }
 
 type GetUserResponse struct {
-	User model.User `json:"user"`
+	User *model.User `json:"user"`
 }
 
 func (resp GetUserResponse) Render(w http.ResponseWriter, r *http.Request) error {
@@ -41,6 +41,19 @@ func (resp GetUserResponse) Render(w http.ResponseWriter, r *http.Request) error
 	return nil
 }
 
-func NewGetUserResponse(user model.User) GetUserResponse {
+func NewGetUserResponse(user *model.User) GetUserResponse {
 	return GetUserResponse{User: user}
+}
+
+type GetItemResponse struct {
+	Item *model.Item `json:"item"`
+}
+
+func (resp GetItemResponse) Render(w http.ResponseWriter, r *http.Request) error {
+	render.Status(r, http.StatusOK)
+	return nil
+}
+
+func NewGetItemResponse(item *model.Item) GetItemResponse {
+	return GetItemResponse{Item: item}
 }

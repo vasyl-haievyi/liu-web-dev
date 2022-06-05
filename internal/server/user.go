@@ -23,6 +23,6 @@ func getCurrentUserHandler(ab *authboss.Authboss) http.HandlerFunc {
 		}
 
 		userModel.Password = ""
-		render.Render(w, req, NewGetUserResponse(*userModel))
+		render.Render(w, req, NewGetUserResponse(userModel))
 	})
 }
