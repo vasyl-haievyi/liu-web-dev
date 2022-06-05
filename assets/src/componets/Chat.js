@@ -5,9 +5,11 @@ import NavBar from './NavBar'
 import Contacts from './Contacts'
 import ChatHistory from "./ChatHistory"
 import MessageEditor from './MessageEditor'
+import Authorized from "./Authorized";
 
 function Chat () {
     return (
+    <Authorized> 
         <Container fluid className="vh-100 overflow-hidden ">
             <Row>
                 <NavBar />  
@@ -26,6 +28,7 @@ function Chat () {
                 </Col>
             </Row>
         </Container>
+    </Authorized>
     )
 }
 
