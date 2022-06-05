@@ -11,3 +11,11 @@ I am going to use Go programming language and Gin framework for the backend beca
 For the frontend I will use React, as this is going to be a quite small webapp and I probably do not need huge framework for it.
 
 The rest of the frameworks and libraries will be chosen during the project implementation.
+
+
+TODO:
+
+
+- [x] Log in
+- [ ] Add item
+- [ ] Search Items
