@@ -6,10 +6,10 @@ import (
 
 type Item struct {
 	Id          primitive.ObjectID `json:"id,omitempty" bson:"_id,omitempty"`
-	Title       string             `json:"title" bson:"title"`
-	Description string             `json:"description" bson:"description"`
-	State       string             `json:"state" bson:"state"`
-	Price       string             `json:"price" bson:"price"`
-	Seller      *User              `json:"seller" bson:"seller"`
-	Category    *Category          `json:"category" bson:"category"`
+	Title       string             `json:"title,omitempty" bson:"title,omitempty"`
+	Description string             `json:"description,omitempty" bson:"description,omitempty"`
+	State       string             `json:"state,omitempty" bson:"state,omitempty"`
+	Price       string             `json:"price,omitempty" bson:"price,omitempty"`
+	Seller      *User              `json:"seller,omitempty" bson:"seller,omitempty"`
+	Category    *Category          `json:"category,omitempty" bson:"category,omitempty"`
 }

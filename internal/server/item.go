@@ -38,3 +38,19 @@ func GetItemHandler(w http.ResponseWriter, r *http.Request) {
 
 	render.Render(w, r, NewGetItemResponse(item))
 }
+
+func GetItemsHandler(w http.ResponseWriter, r *http.Request) {
+	queryString := r.URL.Query().Get("q")
+	categories := []string{}
+	if err := r.ParseForm(); err == nil && r.Form.Has("category") {
+		categories = r.Form["category"]
+	}
+
+	items, err := database.SearchItems(queryString, categories)
+	if err != nil {
+		render.Render(w, r, ErrInternal(err))
+		return
+	}
+
+	render.Render(w, r, NewGetItemsResponse(items))
+}

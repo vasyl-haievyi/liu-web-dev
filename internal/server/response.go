@@ -57,3 +57,16 @@ func (resp GetItemResponse) Render(w http.ResponseWriter, r *http.Request) error
 func NewGetItemResponse(item *model.Item) GetItemResponse {
 	return GetItemResponse{Item: item}
 }
+
+type GetItemsResponse struct {
+	Items []model.Item `json:"items"`
+}
+
+func (resp GetItemsResponse) Render(w http.ResponseWriter, r *http.Request) error {
+	render.Status(r, http.StatusOK)
+	return nil
+}
+
+func NewGetItemsResponse(items []model.Item) GetItemsResponse {
+	return GetItemsResponse{Items: items}
+}
