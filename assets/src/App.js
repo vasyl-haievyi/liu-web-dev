@@ -6,6 +6,7 @@ import Chat from './componets/Chat'
 import Item from './componets/Item'
 import Login from './componets/Login'
 import Account from "./componets/Account";
+import NewItem from "./componets/NewItem";
 
 import { load } from './slices/categoriesSlice';
 
@@ -35,6 +36,7 @@ function App() {
         <Route path='/search' element={ <Search /> } />
         <Route path='/messages' element={ <Chat />}  />
         <Route path='/items/:itemId' element={ <Item /> } />
+        <Route path='/items/new' element={ <NewItem /> } />
         <Route path='/login' element={ <Login />} />
         <Route path='/account' element={ <Account /> }/>
       </Routes>
