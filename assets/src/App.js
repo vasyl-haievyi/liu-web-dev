@@ -17,6 +17,7 @@ import {
   Route
 } from "react-router-dom";
 import { useDispatch } from 'react-redux';
+import Authorized from "./componets/Authorized";
 
 
 function App() {
@@ -34,11 +35,11 @@ function App() {
       <Routes>
         <Route exact path='/' element={ <Main />} />
         <Route path='/search' element={ <Search /> } />
-        <Route path='/messages' element={ <Chat />}  />
+        <Route path='/messages/:userId' element={ <Authorized><Chat /></Authorized>}  />
         <Route path='/items/:itemId' element={ <Item /> } />
-        <Route path='/items/new' element={ <NewItem /> } />
+        <Route path='/items/new' element={ <Authorized><NewItem /></Authorized> } />
         <Route path='/login' element={ <Login />} />
-        <Route path='/account' element={ <Account /> }/>
+        <Route path='/account' element={ <Authorized><Account /></Authorized>  }/>
       </Routes>
     </Router>
   );
