@@ -1,15 +1,18 @@
-import React from 'react'
+import React, { useState, useRef } from 'react'
 import { Container, Row, Col, Button } from 'react-bootstrap'
 
-function MessageEditor () {
+function MessageEditor ({ onSend }) {
+    let [message, setMessage] = useState("")
+    const textareaRef = useRef(null)
+
     return (
         <Container>
             <Row className="align-items-center">
                 <Col >
-                    <textarea className="w-100"></textarea>
+                    <textarea className="w-100" onChange={(e) => {setMessage(e.target.value)}} ref={textareaRef}/>
                 </Col>
                 <Col md="auto">
-                    <Button>Send</Button>
+                    <Button onClick={() => {onSend(message); textareaRef.current.value = ""}}>Send</Button>
                 </Col>
             </Row>
         </Container>

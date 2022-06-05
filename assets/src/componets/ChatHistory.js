@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { Container, Row } from 'react-bootstrap';
 
-function ChatHistory () {
+function ChatHistory ({ messages }) {
 
     const messagesEndRef = useRef(null)
 
@@ -13,7 +13,7 @@ function ChatHistory () {
         scrollToBottom()
     }, []);
 
-    let messages = getMessages().map((message) => {
+    let messageElems = messages.map((message) => {
         let message_classes = message.incoming? "bg-primary" : "bg-info float-end"
         let paragraph_classes = message.incoming? "" : "text-end"
         return (
@@ -25,7 +25,7 @@ function ChatHistory () {
 
     return (
         <Container fluid className="overflow-scroll" style={{maxHeight: "80vh"}}>
-            {messages}
+            {messageElems}
             <Row> <div ref={messagesEndRef} /></Row>
         </Container>
     )
@@ -33,31 +33,31 @@ function ChatHistory () {
 
 export default ChatHistory;
 
-function getMessages() {
-    let res = [];
+// function getMessages() {
+//     let res = [];
 
-    for (let i = 0; i < 40; i++) {
-        let message = "";
-        for(let j = 0; j < Math.random()*10; j++) {
-            message += " " + randomStr();
-        }
-        res.push({
-            id: i,
-            message: message.slice(1),
-            incoming: Math.random() < 0.5,
-        });
-    }
+//     for (let i = 0; i < 40; i++) {
+//         let message = "";
+//         for(let j = 0; j < Math.random()*10; j++) {
+//             message += " " + randomStr();
+//         }
+//         res.push({
+//             id: i,
+//             message: message.slice(1),
+//             incoming: Math.random() < 0.5,
+//         });
+//     }
 
-    return res;
-}
+//     return res;
+// }
 
-function randomStr(length = 10) {
-    var result           = '';
-    var characters       = 'abcdefghijklmnopqrstuvwxyz';
-    var charactersLength = characters.length;
-    for ( var i = 0; i < length; i++ ) {
-      result += characters.charAt(Math.floor(Math.random() * 
- charactersLength));
-   }
-   return result;
-}
+// function randomStr(length = 10) {
+//     var result           = '';
+//     var characters       = 'abcdefghijklmnopqrstuvwxyz';
+//     var charactersLength = characters.length;
+//     for ( var i = 0; i < length; i++ ) {
+//       result += characters.charAt(Math.floor(Math.random() * 
+//  charactersLength));
+//    }
+//    return result;
+// }
