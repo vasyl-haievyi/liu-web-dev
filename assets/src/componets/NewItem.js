@@ -136,7 +136,7 @@ function NewItem() {
                                 <option value={null}>-</option>
                                 {categories.map(c => <option value={c.id}>{c.title}</option> )}
                             </Form.Select>
-                            <Button type="submit" className='w-100 mt-2'>Log In</Button> 
+                            <Button type="submit" className='w-100 mt-2'>Add Item</Button> 
                         </Form>
                     </Row>
             </Container>
