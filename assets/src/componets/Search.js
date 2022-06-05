@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom'
 import { Container, Row, Col } from 'react-bootstrap'
 
@@ -12,6 +12,25 @@ function Search () {
     let [searchParams, setSearchParams] = useSearchParams();
     let [searchResults, setSearchResults] = useState([]);
     let [categoriesFilter, setCategoriesFilter] = useState([])
+    let [searchTerm, setSearchTerm] = useState("")
+    let [justRendered, setJustRendered] = useState(true)
+
+    let loadSearchResults = () => {
+        let searchURL = '/api/items?q=' + searchTerm + '&' + categoriesFilter.map(c => 'category=' + c).join('&')
+        axios.get(searchURL)
+        .then(response => {
+            setSearchResults(response.data.items)
+        }).catch(error => {
+            alert(JSON.stringify(error))
+        })
+    }
+
+    if (justRendered) {
+        setCategoriesFilter(searchParams.getAll('category'))
+        setSearchTerm(searchParams.get('q'))
+        loadSearchResults()
+        setJustRendered(false)
+    }
 
     let onCategoryChecked = (id ,checked) => {
         if (checked) {
@@ -30,14 +49,9 @@ function Search () {
     let onSearchClicked = (searchTerm) => {
         searchParams.set('q', searchTerm)
         setSearchParams(searchParams)
-        
-        let searchURL = '/api/items?q=' + searchTerm + '&' + categoriesFilter.map(c => 'category=' + c).join('&')
-        axios.get(searchURL)
-        .then(response => {
-            setSearchResults(response.data.items)
-        }).catch(error => {
-            alert(JSON.stringify(error))
-        })
+        setSearchTerm(searchTerm)
+
+        loadSearchResults()
     }
 
     return (
