@@ -19,7 +19,7 @@ function Item() {
         .catch(error => {
             alert(JSON.stringify(error))
         })
-    }, [])
+    }, [itemId])
 
     if (item) {
         content = (
@@ -51,10 +51,7 @@ function Item() {
                     <Col lg="6" >
                        <Row>
                             <Link 
-                                to={{
-                                    pathname: "/messages",
-                                    search: `?user=${item.seller.id}`
-                                }}
+                                to={"/messages/" + item.seller.id}
                                 className="btn btn-primary"
                             >
                                 Chat with the Seller
