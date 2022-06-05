@@ -22,7 +22,7 @@ function NavBar() {
                         <Nav.Link as={NavLink}  to="/messages">Messages</Nav.Link>
                         <Nav.Link as={NavLink} to="/following">Following</Nav.Link>
                         <Nav.Link as={NavLink} to="/account">My Account</Nav.Link>
-                        <Nav.Link as={NavLink} to="/items/new">Add Advertisiment</Nav.Link>
+                        <Nav.Link as={NavLink} to="/items/new">Add Advertisement</Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
             </Container>
