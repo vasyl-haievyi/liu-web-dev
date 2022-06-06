@@ -3,6 +3,7 @@ package server
 import (
 	"encoding/base64"
 	"log"
+	"net/http"
 	"time"
 
 	"github.com/gorilla/sessions"
@@ -12,6 +13,7 @@ import (
 	"github.com/volatiletech/authboss/v3/defaults"
 	_ "github.com/volatiletech/authboss/v3/logout"
 	_ "github.com/volatiletech/authboss/v3/register"
+	"github.com/volatiletech/authboss/v3/remember"
 	"gitlab.liu.se/vasha375/tddd27_2022_project/internal/database"
 )
 
@@ -49,4 +51,8 @@ func SetUpAuth() *authboss.Authboss {
 	}
 
 	return ab
+}
+
+func RememberMeMiddleware(ab *authboss.Authboss) func(http.Handler) http.Handler {
+	return remember.Middleware(ab)
 }

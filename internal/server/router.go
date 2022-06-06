@@ -16,7 +16,7 @@ func setRouter() *chi.Mux {
 	router.Use(middleware.Logger)
 	router.Use(middleware.Recoverer)
 	router.Use(render.SetContentType(render.ContentTypeJSON))
-	router.Use(ab.LoadClientStateMiddleware)
+	router.Use(ab.LoadClientStateMiddleware, RememberMeMiddleware(ab))
 
 	router.Group(func(r chi.Router) {
 		r.Use(authboss.ModuleListMiddleware(ab))
