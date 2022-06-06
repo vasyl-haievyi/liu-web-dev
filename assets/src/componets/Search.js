@@ -15,8 +15,8 @@ function Search () {
     let [searchTerm, setSearchTerm] = useState("")
     let [justRendered, setJustRendered] = useState(true)
 
-    let loadSearchResults = () => {
-        let searchURL = '/api/items?q=' + searchTerm + '&' + categoriesFilter.map(c => 'category=' + c).join('&')
+    let loadSearchResults = (q = searchTerm, catF = categoriesFilter) => {
+        let searchURL = '/api/items?q=' + q + '&' + catF.map(c => 'category=' + c).join('&')
         axios.get(searchURL)
         .then(response => {
             setSearchResults(response.data.items)
@@ -28,7 +28,7 @@ function Search () {
     if (justRendered) {
         setCategoriesFilter(searchParams.getAll('category'))
         setSearchTerm(searchParams.get('q'))
-        loadSearchResults()
+        loadSearchResults(searchParams.get('q'), searchParams.getAll('category'))
         setJustRendered(false)
     }
 
