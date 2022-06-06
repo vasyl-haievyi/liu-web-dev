@@ -33,7 +33,8 @@ func setRouter() *chi.Mux {
 			r.Use(authboss.Middleware2(ab, authboss.RequireNone, authboss.RespondUnauthorized))
 
 			r.Post("/items", PostItemHandler)
-			r.Get("/currentUser", getCurrentUserHandler(ab))
+			r.Post("/user/followItem/{id}", PostFollowItemHandler(ab))
+			r.Get("/currentUser", GetCurrentUserHandler(ab))
 			r.Get("/chatws", func(w http.ResponseWriter, r *http.Request) {
 				_ = mld.HandleRequest(w, r)
 			})

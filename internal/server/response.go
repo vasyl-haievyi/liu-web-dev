@@ -70,3 +70,14 @@ func (resp GetItemsResponse) Render(w http.ResponseWriter, r *http.Request) erro
 func NewGetItemsResponse(items []model.Item) GetItemsResponse {
 	return GetItemsResponse{Items: items}
 }
+
+type SuccessResponse struct{}
+
+func (resp SuccessResponse) Render(w http.ResponseWriter, r *http.Request) error {
+	render.Status(r, http.StatusOK)
+	return nil
+}
+
+func NewSuccessResponse() SuccessResponse {
+	return SuccessResponse{}
+}
