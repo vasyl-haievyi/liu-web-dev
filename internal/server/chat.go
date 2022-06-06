@@ -175,12 +175,12 @@ func storeNewMessage(msg string, fromId string, toId string, incoming bool) { //
 	isConvNew := conv == nil
 	if isConvNew {
 		conv = &Conversation{WithUserId: toId, Messages: []ChatMessage{}}
-	}
 
-	if c, ok := conversationsByUserId[fromId]; ok {
-		conversationsByUserId[fromId] = append(c, conv)
-	} else {
-		conversationsByUserId[fromId] = []*Conversation{conv}
+		if c, ok := conversationsByUserId[fromId]; ok {
+			conversationsByUserId[fromId] = append(c, conv)
+		} else {
+			conversationsByUserId[fromId] = []*Conversation{conv}
+		}
 	}
 
 	conv.Messages = append(conv.Messages, ChatMessage{Incoming: incoming, Text: msg})
