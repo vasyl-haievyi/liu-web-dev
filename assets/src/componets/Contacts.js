@@ -1,18 +1,22 @@
 import React from 'react'
 import { Card, Container, Row, Col } from 'react-bootstrap'
 
-function Contacts () {
-    let contacts = getContacts().map((contact) => {
+function Contacts ({ contacts, onContactClicked }) {
+    if (!contacts.length) {
+        return <Container><h2>No Conversations</h2></Container>
+    }
+
+    let contactElems = contacts.map((contact) => {
         return (
             <Row className="my-1">
-                <Card border="primary">
+                <Card border="primary" onClick={ () => onContactClicked(contact) }>
                     <Row className="align-items-center">  
                         <Col md="auto">
                             <Card.Img src="..." height="50px" width="50px"/>
                         </Col>
                         <Col>
                             <Card.Body>
-                                <Card.Title>{contact.name}</Card.Title>
+                                <Card.Title>{contact.id}</Card.Title>
                             </Card.Body>
                         </Col>
                     </Row>
@@ -22,8 +26,8 @@ function Contacts () {
     });
 
     return (
-        <Container className="overflow-scroll" style={{maxHeight: "90vh"}}>
-            {contacts}
+        <Container className="overflow-scroll" style={{maxHeight: "80vh"}}>
+            {contactElems}
         </Container>
     )
 }

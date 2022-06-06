@@ -36,6 +36,7 @@ function App() {
         <Route exact path='/' element={ <Main />} />
         <Route path='/search' element={ <Search /> } />
         <Route path='/messages/:userId' element={ <Authorized><Chat /></Authorized>}  />
+        <Route path='/messages' element={ <Authorized><Chat /></Authorized>}  />
         <Route path='/items/:itemId' element={ <Item /> } />
         <Route path='/items/new' element={ <Authorized><NewItem /></Authorized> } />
         <Route path='/login' element={ <Login />} />
