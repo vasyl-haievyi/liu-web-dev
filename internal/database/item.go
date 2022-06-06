@@ -76,3 +76,33 @@ func SearchItems(searchQuery string, categories []string) ([]model.Item, error) 
 
 	return results, nil
 }
+
+func GetItemsByIds(ids []string) ([]model.Item, error) {
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+
+	bsonIds := []primitive.ObjectID{}
+	for _, id := range ids {
+		bsonId, err := primitive.ObjectIDFromHex(id)
+		if err != nil {
+			continue
+		}
+		bsonIds = append(bsonIds, bsonId)
+	}
+
+	filter := bson.D{E("_id", bson.D{E("$in", bsonIds)})}
+
+	cursor, err := getCollection("items").Find(ctx, filter)
+	if err == mongo.ErrNoDocuments {
+		return []model.Item{}, nil
+	} else if err != nil {
+		return nil, err
+	}
+
+	var results = []model.Item{}
+	if err = cursor.All(ctx, &results); err != nil {
+		return nil, err
+	}
+
+	return results, nil
+}

@@ -13,42 +13,81 @@ import (
 
 func GetCurrentUserHandler(ab *authboss.Authboss) http.HandlerFunc {
 	return http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
-		user, err := ab.CurrentUser(req)
-		if err != nil {
-			render.Render(w, req, ErrUnauthorized)
+		user, ok := getUser(ab, w, req)
+		if !ok {
 			return
 		}
 
-		userModel, ok := user.(*model.User)
-		if !ok {
-			render.Render(w, req, ErrInternal(errors.New("could cast abUser to modelUser")))
-		}
-
-		userModel.Password = ""
-		render.Render(w, req, NewGetUserResponse(userModel))
+		user.Password = ""
+		render.Render(w, req, NewGetUserResponse(user))
 	})
 }
 
 func PostFollowItemHandler(ab *authboss.Authboss) http.HandlerFunc {
 	return http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
-		user, err := ab.CurrentUser(req)
-		if err != nil {
-			render.Render(w, req, ErrUnauthorized)
-			return
-		}
-		userModel, ok := user.(*model.User)
+		user, ok := getUser(ab, w, req)
 		if !ok {
-			render.Render(w, req, ErrInternal(errors.New("could cast abUser to modelUser")))
 			return
 		}
 
 		itemId := chi.URLParam(req, "id")
 
-		if err := database.AddFollowingItem(userModel.Id, itemId); err != nil {
+		if err := database.AddFollowingItem(user.Id, itemId); err != nil {
 			render.Render(w, req, ErrInternal(err))
 			return
 		}
 
 		render.Render(w, req, NewSuccessResponse())
 	})
+}
+
+func GetFollowedItemsHandler(ab *authboss.Authboss) http.HandlerFunc {
+	return http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
+		user, ok := getUser(ab, w, req)
+		if !ok {
+			return
+		}
+
+		if items, err := database.GetItemsByIds(user.FollowedItemsIDs); err != nil {
+			render.Render(w, req, ErrInternal(err))
+			return
+		} else {
+			render.Render(w, req, NewGetItemsResponse(items))
+			return
+		}
+	})
+}
+
+func DeleteFollowedItemHandler(ab *authboss.Authboss) http.HandlerFunc {
+	return http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
+		user, ok := getUser(ab, w, req)
+		if !ok {
+			return
+		}
+
+		itemId := chi.URLParam(req, "id")
+
+		if err := database.DeleteFollowedItem(user.Id, itemId); err != nil {
+			render.Render(w, req, ErrInternal(err))
+			return
+		} else {
+			render.Render(w, req, NewSuccessResponse())
+			return
+		}
+	})
+}
+
+func getUser(ab *authboss.Authboss, w http.ResponseWriter, r *http.Request) (*model.User, bool) {
+	user, err := ab.CurrentUser(r)
+	if err != nil {
+		render.Render(w, r, ErrUnauthorized)
+		return nil, false
+	}
+	userModel, ok := user.(*model.User)
+	if !ok {
+		render.Render(w, r, ErrInternal(errors.New("could cast abUser to modelUser")))
+		return nil, false
+	}
+
+	return userModel, true
 }

@@ -34,6 +34,8 @@ func setRouter() *chi.Mux {
 
 			r.Post("/items", PostItemHandler)
 			r.Post("/user/followItem/{id}", PostFollowItemHandler(ab))
+			r.Get("/user/followedItems", GetFollowedItemsHandler(ab))
+			r.Delete("/user/followedItems/{id}", DeleteFollowedItemHandler(ab))
 			r.Get("/currentUser", GetCurrentUserHandler(ab))
 			r.Get("/chatws", func(w http.ResponseWriter, r *http.Request) {
 				_ = mld.HandleRequest(w, r)

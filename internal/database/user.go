@@ -27,7 +27,32 @@ func AddFollowingItem(userId primitive.ObjectID, itemId string) error {
 	user.FollowedItemsIDs = append(user.FollowedItemsIDs, itemId)
 	filter := bson.D{E("_id", userId)}
 
-	update := bson.D{E("$set", E("followed_items_ids", user.FollowedItemsIDs))}
+	update := bson.D{E("$set", bson.D{E("followed_items_ids", user.FollowedItemsIDs)})}
+	if _, err := getCollection("users").UpdateOne(ctx, filter, update); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func DeleteFollowedItem(userId primitive.ObjectID, itemId string) error {
+	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
+	defer cancel()
+
+	user, err := FindUserById(userId)
+	if err != nil {
+		return nil
+	}
+
+	var newFollowedItems []string
+	for _, id := range user.FollowedItemsIDs {
+		if id != itemId {
+			newFollowedItems = append(newFollowedItems, id)
+		}
+	}
+
+	filter := bson.D{E("_id", userId)}
+	update := bson.D{E("$set", bson.D{E("followed_items_ids", newFollowedItems)})}
 	if _, err := getCollection("users").UpdateOne(ctx, filter, update); err != nil {
 		return err
 	}
