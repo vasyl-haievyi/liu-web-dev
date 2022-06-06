@@ -16,6 +16,11 @@ function Search () {
     let [justRendered, setJustRendered] = useState(true)
 
     let loadSearchResults = (q = searchTerm, catF = categoriesFilter) => {
+        if (!q && !catF) {
+            return
+        }
+        q = q? q : ""
+        catF = catF? catF : []
         let searchURL = '/api/items?q=' + q + '&' + catF.map(c => 'category=' + c).join('&')
         axios.get(searchURL)
         .then(response => {
@@ -67,7 +72,7 @@ function Search () {
                     <SearchOptions checked={searchParams.getAll('category')} onCheckedChange={onCategoryChecked} />
                 </Col>
                 <Col>
-                    <SearchResults results={searchResults} />
+                    <SearchResults results={searchResults ?? []} />
                 </Col>
             </Row>
         </Container>
