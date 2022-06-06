@@ -7,6 +7,7 @@ import Item from './componets/Item'
 import Login from './componets/Login'
 import Account from "./componets/Account";
 import NewItem from "./componets/NewItem";
+import Register from './componets/Register'
 
 import { load } from './slices/categoriesSlice';
 
@@ -40,7 +41,8 @@ function App() {
         <Route path='/items/:itemId' element={ <Item /> } />
         <Route path='/items/new' element={ <Authorized><NewItem /></Authorized> } />
         <Route path='/login' element={ <Login />} />
-        <Route path='/account' element={ <Authorized><Account /></Authorized>  }/>
+        <Route path='/register' element={<Register />} />
+        <Route path='/account' element={ <Authorized><Account /></Authorized>  } />
       </Routes>
     </Router>
   );

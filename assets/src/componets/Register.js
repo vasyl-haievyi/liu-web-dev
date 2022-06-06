@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Container, Row, Form, FloatingLabel, Button, Toast } from 'react-bootstrap'
 import { useFormik } from 'formik'
-import { Link, Navigate, useSearchParams } from 'react-router-dom';
+import { Navigate, useSearchParams, Link } from 'react-router-dom';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -9,7 +9,7 @@ import NavBar from './NavBar'
 import { logIn } from '../slices/userSlice';
 
 
-function Login() {
+function Register() {
     let [loadingShow, setLoadingShow] = useState(false)
     let loggedInUser = useSelector(state => state.user)
     let [searchParams] = useSearchParams();
@@ -36,19 +36,28 @@ function Login() {
         } else if (!/[^A-Za-z0-9]+/.test(values.password)) {
             errors.password = 'Minimum 1 special character'
         }
+
+        if(!values.repeatPassword) {
+            errors.repeatPassword = 'Required'
+        } else if (values.repeatPassword !== values.password) {
+            errors.repeatPassword = 'Please, repeat your password'
+        }
+        
         return errors;
     };
     const formik = useFormik({
         initialValues: {
             email: '',
-            password: ''
+            password: '',
+            repeatPassword: ''
         },
         validate,
         onSubmit: values => {
             setLoadingShow(true)
-            axios.post('/auth/login', {
+            axios.post('/auth/register', {
                 email: formik.values.email,
-                password: formik.values.password
+                password: formik.values.password,
+                confirm_password: formik.values.repeatPassword
             })
             .catch(({ response }) => {
                 if (response.data.status !== 'success') {
@@ -117,8 +126,20 @@ function Login() {
                             isInvalid={formik.touched.password && !!formik.errors.password}/>
                             {formik.errors.password ? <Form.Control.Feedback type="invalid" tooltip>{formik.errors.password}</Form.Control.Feedback> : null}
                     </FloatingLabel> 
-                    <Button type="submit" className='w-100 mt-2'>Log In</Button>
-                    <h5>Don't have an account? <Link to={'/register' + (searchParams.get('redirect')? '/?redirect=' + searchParams.get('redirect') : '')}>Register</Link></h5>
+                    <FloatingLabel label="Repeat Password">
+                        <Form.Control
+                            id="repeatPassword"
+                            type="password" 
+                            placeholder="Repeat Password"
+                            name="repeatPassword"
+                            onChange={formik.handleChange}
+                            value={formik.values.repeatPassword}
+                            isValid={formik.touched.repeatPassword && !formik.errors.repeatPassword}
+                            isInvalid={formik.touched.repeatPassword && !!formik.errors.repeatPassword}/>
+                            {formik.errors.repeatPassword ? <Form.Control.Feedback type="invalid" tooltip>{formik.errors.repeatPassword}</Form.Control.Feedback> : null}
+                    </FloatingLabel>
+                    <Button type="submit" className='w-100 mt-2'>Register</Button> 
+                    <h5>Already have an account? <Link to={'/login' + (searchParams.get('redirect')? '/?redirect=' + searchParams.get('redirect') : '')}>Log In</Link></h5>
                 </Form>
             </Row>
             <Row>
@@ -132,4 +153,4 @@ function Login() {
     )
 }
 
-export default Login;
+export default Register;
