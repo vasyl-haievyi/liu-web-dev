@@ -1,14 +1,16 @@
-import { Container, Row, Col, Carousel, Badge } from 'react-bootstrap'
+import { Container, Row, Col, Carousel, Badge, Button } from 'react-bootstrap'
 import { useParams, Link } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 
 import NavBar from './NavBar'
 import SearchBar from './SearchBar'
 import axios from 'axios'
+import { useSelector } from 'react-redux'
 
 function Item() {
     let { itemId } = useParams();
     let [item, setItem] = useState(null)
+    let user = useSelector(state => state.user)
     let content = <h2>Loading...</h2>
 
     useEffect(() => {
@@ -20,6 +22,14 @@ function Item() {
             alert(JSON.stringify(error))
         })
     }, [itemId])
+
+    let followItem = () => {
+        if (!user || !item) { return }
+        axios.post('/api/user/followItem/' + item.id)
+        .catch(error => {
+            alert(JSON.stringify(error))
+        })
+    }
 
     if (item) {
         content = (
@@ -56,6 +66,7 @@ function Item() {
                             >
                                 Chat with the Seller
                             </Link>
+                            {user? <Button variant="dark" className='mt-2' onClick={followItem}>Follow the item</Button> : null}
                        </Row>
                     </Col>
                 </Row>
