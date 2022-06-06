@@ -15,7 +15,7 @@ function Authorized({ children }) {
     } else {
         return <Navigate to={{
             pathname: '/login', 
-            search: '?redirect=' + window.location.pathname}}/>
+            search: '?redirect=' + window.location.pathname + '?' + window.location.search}}/>
     }
 }
 
