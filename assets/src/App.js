@@ -19,6 +19,7 @@ import {
 } from "react-router-dom";
 import { useDispatch } from 'react-redux';
 import Authorized from "./componets/Authorized";
+import FollowedItems from "./componets/FollowedItems";
 
 
 function App() {
@@ -43,6 +44,7 @@ function App() {
         <Route path='/login' element={ <Login />} />
         <Route path='/register' element={<Register />} />
         <Route path='/account' element={ <Authorized><Account /></Authorized>  } />
+        <Route path='/following' element={ <Authorized><FollowedItems/></Authorized> } />
       </Routes>
     </Router>
   );
