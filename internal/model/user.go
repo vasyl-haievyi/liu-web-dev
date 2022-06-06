@@ -1,6 +1,9 @@
 package model
 
 import (
+	"fmt"
+	"strings"
+
 	"github.com/volatiletech/authboss/v3"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
@@ -28,6 +31,8 @@ func (u User) GetPassword() string { return u.Password }
 
 // GetEmail from user
 func (u User) GetEmail() string { return u.Email }
+
+func (u User) GetIDString() string { return strings.Trim(fmt.Sprintf("%q", u.Id.Hex()), "\"") }
 
 var (
 	assertUser = &User{}
