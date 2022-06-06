@@ -1,11 +1,12 @@
-import { Container, Row, Button, Toast } from 'react-bootstrap'
+import { Container, Row, Button, Toast, Col } from 'react-bootstrap'
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 
 import NavBar from './NavBar';
 import { logOut } from '../slices/userSlice';
+import UserContext from '../context';
 
 
 
@@ -13,6 +14,7 @@ function Account() {
     let [showLoggedOut, setShowLoggedOut] = useState(false)
     let dispatch = useDispatch()
     let navigate = useNavigate()
+    let user = useContext(UserContext)
 
     const doLogout = () => {
         axios.delete('/auth/logout',{
@@ -44,9 +46,15 @@ function Account() {
         <Container fluid>
             <Row>
                 <NavBar/>
-                </Row>
+            </Row>
             <Row md='3' lg="5" className='justify-content-center mt-4'>
-                <Button variant="danger" onClick={ doLogout }>Log Out</Button>
+                <Col>
+                    <Row>Your Email: {user.email}</Row>
+                    <Row>Your ID: {user.id}</Row>
+                </Col>
+                <Col>
+                    <Button variant="danger" onClick={ doLogout }>Log Out</Button>
+                </Col>
             </Row>
             <Row>
                 <Toast className="d-inline-block m-1" 
