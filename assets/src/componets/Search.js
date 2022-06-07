@@ -56,7 +56,7 @@ function Search () {
         setSearchParams(searchParams)
         setSearchTerm(searchTerm)
 
-        loadSearchResults()
+        loadSearchResults(searchTerm, searchParams.getAll('category'))
     }
 
     return (
