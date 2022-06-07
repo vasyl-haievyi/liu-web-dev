@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
 import { Navigate } from "react-router-dom";
 
-import UserContext from '../context';
+import { UserContext } from '../context';
 
 function Authorized({ children }) {
     let user = useSelector(state => state.user)

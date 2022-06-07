@@ -1,16 +1,20 @@
 import { Container, Row, Col, Carousel, Badge, Button } from 'react-bootstrap'
 import { useParams, Link } from 'react-router-dom'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
+import { AdvancedImage } from '@cloudinary/react';
+import axios from 'axios'
+import { useSelector } from 'react-redux'
 
 import NavBar from './NavBar'
 import SearchBar from './SearchBar'
-import axios from 'axios'
-import { useSelector } from 'react-redux'
+import { CloudinaryContext } from '../context'
+
 
 function Item() {
     let { itemId } = useParams();
     let [item, setItem] = useState(null)
     let user = useSelector(state => state.user)
+    let cld = useContext(CloudinaryContext)
     let content = <h2>Loading...</h2>
 
     useEffect(() => {
@@ -37,6 +41,15 @@ function Item() {
                 <Row className='justify-content-md-center'>
                     <Col lg="6">
                         <Carousel interval={null} variant="dark">
+                            {item.image? 
+                            <Carousel.Item>
+                                <Row className='justify-content-md-center'>
+                                    <AdvancedImage cldImg={cld.image(item.image)}></AdvancedImage>
+                                </Row>
+                            </Carousel.Item>  
+                            :
+                            null
+                            }
                             {new Array(5).fill(undefined).map(() => { 
                                 return (
                                     <Carousel.Item>

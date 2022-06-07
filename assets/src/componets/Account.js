@@ -6,7 +6,7 @@ import { useContext, useState } from 'react';
 
 import NavBar from './NavBar';
 import { logOut } from '../slices/userSlice';
-import UserContext from '../context';
+import { UserContext } from '../context';
 
 
 

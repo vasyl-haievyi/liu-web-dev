@@ -1,12 +1,16 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useContext } from 'react'
 import { Container, Row, Col, Card, Button} from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import axios from 'axios';
+import { AdvancedImage } from '@cloudinary/react';
+import { thumbnail } from "@cloudinary/url-gen/actions/resize";
 
 import NavBar from './NavBar'
+import { CloudinaryContext } from '../context'
 
 function FollowedItems() {
     let [followedItems, setFollowedItems] = useState([])
+    let cld = useContext(CloudinaryContext)
 
     useEffect(() => {
         axios.get('/api/user/followedItems')
@@ -32,7 +36,11 @@ function FollowedItems() {
                 <Card border="primary">
                     <Row>
                         <Col md="auto" className="my-2">
+                            {item.image?
+                            <Card.Img as={AdvancedImage} cldImg={cld.image(item.image).resize(thumbnail().width(175).height(250))}></Card.Img>
+                            :
                             <Card.Img src="..." height="250px" width="175px"/>
+                            }
                         </Col>
                         <Col className='flex-grow-1'>
                             <Card.Body className="h-100">
