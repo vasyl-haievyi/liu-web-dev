@@ -1,6 +1,7 @@
 package server
 
 import (
+	"io/ioutil"
 	"net/http"
 
 	"github.com/go-chi/chi/v5"
@@ -24,7 +25,6 @@ func setRouter() *chi.Mux {
 	})
 
 	router.Route("/api", func(r chi.Router) {
-
 		r.Get("/categories", GetCategoriesHandler)
 		r.Get("/items/{id}", GetItemHandler)
 		r.Get("/items", GetItemsHandler)
@@ -42,7 +42,17 @@ func setRouter() *chi.Mux {
 			})
 			r.Get("/signImageUpload", SignImageUploadHandler)
 		})
+	})
 
+	router.Get("/static/*", func(w http.ResponseWriter, r *http.Request) {
+		dir := http.Dir("./assets/build/static")
+
+		http.StripPrefix("/static/", http.FileServer(dir)).ServeHTTP(w, r)
+	})
+
+	index, _ := ioutil.ReadFile("./assets/build/index.html")
+	router.Get("/", func(w http.ResponseWriter, r *http.Request) {
+		w.Write(index)
 	})
 
 	return router
