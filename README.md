@@ -2,20 +2,44 @@
 
 ## Description
 
-I want to make online market place where people can register as sellers or customers and trade. As a seller you will be able to create different items with description, photos etc. As a customer you will be able to buy items, leave feedback, communicate with sellers. Also, I want to implement some social network functionalities like chatting, having friends list, friends' updates wall etc. 
+The project is an online markedplace. 
+
+Users can search for different items using text and categories. 
+
+Registered users can add items to their followed items list and write a message in a chat with the seller.
+
+If a seller and a user are both online, they can have live chat. 
+
+Registered users can also add new items. One image is allowed to be added to the item.
+
+Logged in users can log out at any time, as well as access their email and ID.
 
 ## Frameworks
 
-I am going to use Go programming language and Gin framework for the backend because I would like to learn those instruments.
+## Backend: 
+Go programming language
 
-For the frontend I will use React, as this is going to be a quite small webapp and I probably do not need huge framework for it.
+For REST API routing I decided to use Chi framework, as it has good compatibility with standard go library and other Go frameworks.
 
-The rest of the frameworks and libraries will be chosen during the project implementation.
+For authentication I use Authboss ready solution, as it has many available modules.
+
+I use MongoDB as a storage and official Mongo driver for Go.
+
+For websockets handling I use Melody framework, because it is much easier to use than popular gorilla/websockets.
 
 
-TODO:
+## Frontend:
+React Framework for building UI
 
+Axios for handling HTTP requests and responses
 
-- [x] Log in
-- [ ] Add item
-- [ ] Search Items
+React Bootstrap for ready components based on bootstrap framework
+
+Formik for form validation
+
+React Router for client routing
+
+React Use Websocket for working with websockets
+
+React Redux for handling global application state
+
