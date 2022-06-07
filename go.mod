@@ -9,6 +9,7 @@ require (
 	github.com/volatiletech/authboss-clientstate v0.0.0-20200826024349-8d4e74078241
 	github.com/volatiletech/authboss/v3 v3.2.0
 	go.mongodb.org/mongo-driver v1.9.1
+	gopkg.in/olahol/melody.v1 v1.0.0-20170518105555-d52139073376
 )
 
 require (
@@ -32,5 +33,4 @@ require (
 	golang.org/x/xerrors v0.0.0-20200804184101-5ec99f83aff1 // indirect
 	google.golang.org/appengine v1.6.6 // indirect
 	google.golang.org/protobuf v1.25.0 // indirect
-	gopkg.in/olahol/melody.v1 v1.0.0-20170518105555-d52139073376 // indirect
 )

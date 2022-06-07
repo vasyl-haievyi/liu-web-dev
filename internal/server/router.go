@@ -40,6 +40,7 @@ func setRouter() *chi.Mux {
 			r.Get("/chatws", func(w http.ResponseWriter, r *http.Request) {
 				_ = mld.HandleRequest(w, r)
 			})
+			r.Get("/signImageUpload", SignImageUploadHandler)
 		})
 
 	})

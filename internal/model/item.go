@@ -10,6 +10,7 @@ type Item struct {
 	Description string             `json:"description,omitempty" bson:"description,omitempty"`
 	State       string             `json:"state,omitempty" bson:"state,omitempty"`
 	Price       string             `json:"price,omitempty" bson:"price,omitempty"`
+	Image       string             `json:"image" bson:"image,omitempty"`
 	Seller      *User              `json:"seller,omitempty" bson:"seller,omitempty"`
 	Category    *Category          `json:"category,omitempty" bson:"category,omitempty"`
 }

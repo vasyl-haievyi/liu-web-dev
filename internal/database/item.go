@@ -48,7 +48,7 @@ func SearchItems(searchQuery string, categories []string) ([]model.Item, error) 
 	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
 	defer cancel()
 
-	opts := options.Find().SetProjection(bson.D{E("_id", 1), E("title", 1)})
+	opts := options.Find().SetProjection(bson.D{E("_id", 1), E("title", 1), E("image", 1)})
 
 	filter := bson.D{{}}
 	textFilter := bson.D{E("$text", bson.D{E("$search", searchQuery)})}

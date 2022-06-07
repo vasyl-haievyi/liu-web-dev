@@ -81,3 +81,15 @@ func (resp SuccessResponse) Render(w http.ResponseWriter, r *http.Request) error
 func NewSuccessResponse() SuccessResponse {
 	return SuccessResponse{}
 }
+
+type SignatureResponse struct {
+	Signature string `json:"signature"`
+	Timestamp string `json:"timestamp"`
+	ApiKey    string `json:"apiKey"`
+	CloudName string `json:"cloudName"`
+}
+
+func (resp SignatureResponse) Render(w http.ResponseWriter, r *http.Request) error {
+	render.Status(r, http.StatusOK)
+	return nil
+}
