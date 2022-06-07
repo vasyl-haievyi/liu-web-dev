@@ -69,7 +69,7 @@ func SearchItems(searchQuery string, categories []string) ([]model.Item, error) 
 		return nil, err
 	}
 
-	var results []model.Item
+	results := []model.Item{}
 	if err = cursor.All(ctx, &results); err != nil {
 		return nil, err
 	}
