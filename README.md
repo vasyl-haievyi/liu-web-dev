@@ -45,3 +45,8 @@ React Redux for handling global application state
 
 Cloudinary React for working with images
 
+# Screencasts
+
+Screencasts are available in the [Google Drive folder](https://drive.google.com/drive/folders/1fp9lZZ3zBwItmKdFQj_7EnPuz7Of-0FK?usp=sharing).
+
+I am sorry for the sound quality, unfortunately I could not fix it.
