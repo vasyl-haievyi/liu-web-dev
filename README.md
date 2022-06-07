@@ -43,3 +43,5 @@ React Use Websocket for working with websockets
 
 React Redux for handling global application state
 
+Cloudinary React for working with images
+
