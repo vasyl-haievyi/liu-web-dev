@@ -1,8 +1,10 @@
 package server
 
 import (
+	"fmt"
 	"io/ioutil"
 	"net/http"
+	"os"
 
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
@@ -51,6 +53,7 @@ func setRouter() *chi.Mux {
 	})
 
 	index, _ := ioutil.ReadFile("../assets/build/index.html")
+	fmt.Println(os.Getwd())
 	router.Get("/*", func(w http.ResponseWriter, r *http.Request) {
 		w.Write(index)
 	})
