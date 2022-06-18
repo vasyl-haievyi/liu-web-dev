@@ -46,14 +46,16 @@ func setRouter() *chi.Mux {
 		})
 	})
 
+	curDir, _ := os.Getwd()
+
 	router.Get("/static/*", func(w http.ResponseWriter, r *http.Request) {
-		dir := http.Dir("./assets/build/static")
+		dir := http.Dir(curDir + "/assets/build/static")
 
 		http.StripPrefix("/static/", http.FileServer(dir)).ServeHTTP(w, r)
 	})
 
-	index, err := ioutil.ReadFile("./assets/build/index.html")
-	fmt.Println(os.Getwd())
+	index, err := ioutil.ReadFile(curDir + "/assets/build/index.html")
+	fmt.Println()
 	fmt.Println(err)
 	router.Get("/*", func(w http.ResponseWriter, r *http.Request) {
 		w.Write(index)
