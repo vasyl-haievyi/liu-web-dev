@@ -1,1 +1,1 @@
-web: bin/liu-web-dev
+web: bin/backend
