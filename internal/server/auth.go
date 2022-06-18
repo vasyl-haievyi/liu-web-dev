@@ -4,6 +4,7 @@ import (
 	"encoding/base64"
 	"log"
 	"net/http"
+	"os"
 	"time"
 
 	"github.com/gorilla/sessions"
@@ -27,8 +28,8 @@ func SetUpAuth() *authboss.Authboss {
 	ab.Config.Paths.Mount = "/auth"
 	ab.Config.Storage.Server = database.NewDefaultStorer()
 
-	cookieStoreKey, _ := base64.StdEncoding.DecodeString(`NpEPi8pEjKVjLGJ6kYCS+VTCzi6BUuDzU0wrwXyf5uDPArtlofn2AG6aTMiPmN3C909rsEWMNqJqhIVPGP3Exg==`)
-	sessionStoreKey, _ := base64.StdEncoding.DecodeString(`AbfYwmmt8UCwUuhd9qvfNA9UCuN1cVcKJN1ofbiky6xCyyBj20whe40rJa3Su0WOWLWcPpO1taqJdsEI/65+JA==`)
+	cookieStoreKey, _ := base64.StdEncoding.DecodeString(os.Getenv("COOKIE_STORE_KEY"))
+	sessionStoreKey, _ := base64.StdEncoding.DecodeString(os.Getenv("SESSION_STORE_KEY"))
 
 	cookieStore := abclientstate.NewCookieStorer(cookieStoreKey, nil)
 	cookieStore.HTTPOnly = false

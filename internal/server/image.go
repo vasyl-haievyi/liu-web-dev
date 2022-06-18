@@ -8,6 +8,7 @@ import (
 	"hash"
 	"net/http"
 	"net/url"
+	"os"
 	"strconv"
 	"time"
 
@@ -17,7 +18,10 @@ import (
 const (
 	cloudName = "drm00a34m"
 	apiKey    = "752572853785933"
-	apiSecret = "MwsEdpYos8vXoMqM26-n_72HtoI"
+)
+
+var (
+	apiSecret = os.Getenv("CLOUDINARY_SECRET")
 )
 
 func SignImageUploadHandler(w http.ResponseWriter, r *http.Request) {

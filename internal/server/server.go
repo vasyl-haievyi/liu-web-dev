@@ -1,9 +1,16 @@
 package server
 
-import "net/http"
+import (
+	"net/http"
+	"os"
+)
 
 func Start() {
 	router := setRouter()
 
-	http.ListenAndServe(":8080", router)
+	port := ":8080"
+	if env_port, ok := os.LookupEnv("PORT"); ok {
+		port = ":" + env_port
+	}
+	http.ListenAndServe(port, router)
 }
