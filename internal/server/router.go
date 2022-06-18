@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
-	"os"
 
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
@@ -46,15 +45,13 @@ func setRouter() *chi.Mux {
 		})
 	})
 
-	curDir, _ := os.Getwd()
-
 	router.Get("/static/*", func(w http.ResponseWriter, r *http.Request) {
-		dir := http.Dir(curDir + "/assets/build/static")
+		dir := http.Dir(".assets/build/static")
 
 		http.StripPrefix("/static/", http.FileServer(dir)).ServeHTTP(w, r)
 	})
 
-	index, err := ioutil.ReadFile(curDir + "/assets/build/index.html")
+	index, err := ioutil.ReadFile("./assets/build/index.html")
 	fmt.Println()
 	fmt.Println(err)
 	router.Get("/*", func(w http.ResponseWriter, r *http.Request) {
