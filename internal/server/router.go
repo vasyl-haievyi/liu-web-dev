@@ -51,7 +51,7 @@ func setRouter() *chi.Mux {
 	})
 
 	index, _ := ioutil.ReadFile("./assets/build/index.html")
-	router.Get("/", func(w http.ResponseWriter, r *http.Request) {
+	router.Get("/*", func(w http.ResponseWriter, r *http.Request) {
 		w.Write(index)
 	})
 
