@@ -46,7 +46,7 @@ func setRouter() *chi.Mux {
 	})
 
 	router.Get("/static/*", func(w http.ResponseWriter, r *http.Request) {
-		dir := http.Dir(".assets/build/static")
+		dir := http.Dir("./assets/build/static")
 
 		http.StripPrefix("/static/", http.FileServer(dir)).ServeHTTP(w, r)
 	})
