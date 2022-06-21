@@ -14,6 +14,8 @@ Registered users can also add new items. One image is allowed to be added to the
 
 Logged in users can log out at any time, as well as access their email and ID.
 
+Deployed application on Heroku can be found [here](https://go-react-marketplace.herokuapp.com/)
+
 ## Frameworks
 
 ## Backend: 
